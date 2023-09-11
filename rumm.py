@@ -8,10 +8,14 @@ class Deck:
 class Player:
 
     def __init__(self):
-        self.id = 1
+        self.id = id(self)
+        self.hand = []
+        d1.num_of_cards -= 7
+
+# --- MUST BE INITIALIZED TO RUN --- #
+# ---       DO NOT REMOVE        --- #
+d1 = Deck()
 
 p1 = Player()
-p2 = Player()
 
-print(p1.id)
-print(p2.id)
+print(d1)
