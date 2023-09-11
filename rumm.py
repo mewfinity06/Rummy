@@ -1,8 +1,10 @@
+import random
+
 class Deck:
     def __init__(self) -> None:
 
-        suits = ['S', 'H', 'C', 'D']
-        values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+        suits = ['SPADES', 'HEARTS', 'CLUBS', 'DIAMONDS']
+        values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING']
 
         self.deck_contents = []
 
@@ -11,6 +13,8 @@ class Deck:
                 self.deck_contents += [(j, i)]
         
         self.num_of_cards = len(self.deck_contents)
+
+        random.shuffle(self.deck_contents)
 
     def __repr__(self) -> str:
         return "Deck has " + str(self.num_of_cards) + " cards left"
@@ -30,7 +34,7 @@ class Player:
 
     def show_hand(self):
         for card in self.hand:
-            print(card)
+            print( card )
 
 # --- MUST BE INITIALIZED TO RUN --- #
 # ---       DO NOT REMOVE        --- #
@@ -38,6 +42,8 @@ d1 = Deck()
 
 p1 = Player()
 
-print(d1)
-p1.show_hand()
-print(d1)
+i = 1
+
+for card in d1.deck_contents:
+    print( i, card )
+    i += 1
