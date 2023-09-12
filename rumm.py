@@ -4,6 +4,7 @@ class Deck:
     def __init__(self) -> None:
         self.contents = []
         self.build()
+        self.shuffleDeck()
         self.num_of_cards = len(self.contents)
         
 
@@ -21,9 +22,6 @@ class Deck:
         card_order = {
             a: [] for a in range(52)
         }
-
-        suit_order = ["Spade", "Heart", "Club", "Diamond"]
-        value_order = [i for i in range(1, 13)]
 
         temp_deck = []
 
@@ -67,9 +65,6 @@ class Deck:
         self.contents.sort(key=helper_suit)
 
 
-        
-
-
 class Player:
 
     def __init__(self):
@@ -77,15 +72,23 @@ class Player:
         self.hand = []
 
         for c in range(7):
-            self.hand += d1.deck_contents.pop()
-        
+            self.hand.append(d1.contents.pop())
     
     def draw(self):
-        self.hand += d1.deck_contents.pop()
+        self.hand.append(d1.contents.pop())
 
     def show_hand(self):
+        print("\n")
         for card in self.hand:
-            print( card )
+            if card[0] == "s":
+                print("Spade", card[1:], end=", ")
+            elif card[0] == "h":
+                print("Heart", card[1:], end=", ")
+            elif card[0] == "c":
+                print("Club", card[1:], end=", ")
+            elif card[0] == "d":
+                print("Diamond", card[1:], end=", ")
+        print("\n")
 
 # --- MUST BE INITIALIZED TO RUN --- #
 # ---       DO NOT REMOVE        --- #
@@ -94,8 +97,8 @@ d1 = Deck()
 
 # --        DO NOT REMOVE        --- #
 # --- MUST BE INITIALIZED TO RUN --- # 
+p1 = Player()
 
-print( d1 )
+p1.draw()
 
-d1.shuffleDeck()
-d1.sortDeck()
+p1.show_hand()
