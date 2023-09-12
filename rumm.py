@@ -2,22 +2,37 @@ import random
 
 class Deck:
     def __init__(self) -> None:
-
-        suits = ['SPADES', 'HEARTS', 'CLUBS', 'DIAMONDS']
-        values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING']
-
-        self.deck_contents = []
-
-        for i in suits:
-            for j in values:
-                self.deck_contents += [(j, i)]
+        self.contents = {}
+        self.num_of_cards = len(self.contents)
         
-        self.num_of_cards = len(self.deck_contents)
-
-        random.shuffle(self.deck_contents)
 
     def __repr__(self) -> str:
         return "Deck has " + str(self.num_of_cards) + " cards left"
+
+    def shuffleDeck(self):
+        random.shuffle(self.contents)
+    
+    def build(self):
+        card_order = {
+            a: [] for a in range(52)
+        }
+
+        # Add Spades to Contents
+        for i in range(52):
+            if i in range(0, 12):
+                card_order[i] = ["Spade",]
+            elif i in range(13, 25):
+                card_order[i] = ["Heart",]
+            elif i in range(26, 38):
+                card_order[i] = ["Club",]
+            elif i in range(39, 51):
+                card_order[i] = ["Diamond",]
+            
+            
+        
+        self.contents = card_order
+
+
 
 class Player:
 
@@ -40,10 +55,7 @@ class Player:
 # ---       DO NOT REMOVE        --- #
 d1 = Deck()
 
-p1 = Player()
+d1.build()
 
-i = 1
 
-for card in d1.deck_contents:
-    print( i, card )
-    i += 1
+print(d1.contents)
