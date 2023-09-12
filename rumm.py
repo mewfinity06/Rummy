@@ -3,8 +3,8 @@ import random
 class Deck:
     def __init__(self) -> None:
         self.contents = []
-        self.num_of_cards = len(self.contents)
         self.build()
+        self.num_of_cards = len(self.contents)
         
 
     def __repr__(self) -> str:
