@@ -65,7 +65,6 @@ class Deck:
         self.contents.sort(key=helperValue)
         self.contents.sort(key=helperSuit)
 
-
 class Player:
 
     def __init__(self, name):
@@ -76,6 +75,11 @@ class Player:
 
         for c in range(7):
             self.hand.append(d1.contents.pop())
+        
+        self.sortHand()
+    
+    def __repr__(self):
+        return self.name + " has " + str(len(self.hand)) + " cards left"
     
     def sayName(self):
         print(self.name)
@@ -94,6 +98,8 @@ class Player:
                 print("Club", card[1:], end=", ")
             elif card[0] == "d":
                 print("Diamond", card[1:], end=", ")
+            else:
+                print("Other")
         print("\n")
 
     def sortHand(self):
@@ -134,5 +140,10 @@ d1 = Deck()
 # --        DO NOT REMOVE        --- #
 # --- MUST BE INITIALIZED TO RUN --- # 
 
-p1 = User("Ashton")
+def start():
+    player_name = input("Name:")
+    p1 = Player(player_name)
+    print(p1)
 
+if __name__ == "__main__":
+    start()
