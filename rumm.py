@@ -17,7 +17,7 @@ class Deck:
     def shuffleDeck(self) -> None:
         random.shuffle(self.contents)
     
-    def build(self):
+    def build(self) -> None:
         card_order = {
             a: [] for a in range(52)
         }
@@ -45,7 +45,29 @@ class Deck:
             
         
     def sortDeck(self):
-        pass
+
+        def helper_value(c):
+            value = c[1:]
+            return(int(value))
+        
+        def helper_suit(c):
+            suit = c[0]
+            if suit == "s":
+                return 0
+            elif suit == "h":
+                return 1
+            elif suit == "c":
+                return 2
+            elif suit == "d":
+                return 3
+            else:
+                return 4
+        print(self.contents)
+        self.contents.sort(key=helper_value)
+        self.contents.sort(key=helper_suit)
+        print(self.contents)
+
+
         
 
 
@@ -74,4 +96,7 @@ d1 = Deck()
 # --        DO NOT REMOVE        --- #
 # --- MUST BE INITIALIZED TO RUN --- # 
 
-print(d1)
+print( d1 )
+
+d1.shuffleDeck()
+d1.sortDeck()
