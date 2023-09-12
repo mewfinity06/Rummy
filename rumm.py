@@ -16,7 +16,8 @@ class Deck:
             print( card )
 
     def shuffleDeck(self) -> None:
-        random.shuffle(self.contents)
+        for i in range(10):
+            random.shuffle(self.contents)
     
     def build(self) -> None:
         card_order = {
@@ -67,12 +68,17 @@ class Deck:
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = "User: " + name
+
         self.id = id(self)
         self.hand = []
 
         for c in range(7):
             self.hand.append(d1.contents.pop())
+    
+    def sayName(self):
+        print(self.name)
     
     def draw(self):
         self.hand.append(d1.contents.pop())
@@ -90,6 +96,36 @@ class Player:
                 print("Diamond", card[1:], end=", ")
         print("\n")
 
+    def sortHand(self):
+
+        def helperValue(c):
+            value = c[1:]
+            return(int(value))
+        
+        def helperSuit(c):
+            suit = c[0]
+            if suit == "s":
+                return 0
+            elif suit == "h":
+                return 1
+            elif suit == "c":
+                return 2
+            elif suit == "d":
+                return 3
+            else:
+                return 4
+            
+        self.hand.sort(key=helperValue)
+        self.hand.sort(key=helperSuit)
+
+class User(Player):
+    def __init__(self, name = "1"):
+        super().__init__(name)
+
+class Bot(Player):
+    def __init__(self):
+        super().__init__("BOT")
+
 # --- MUST BE INITIALIZED TO RUN --- #
 # ---       DO NOT REMOVE        --- #
 
@@ -97,8 +133,6 @@ d1 = Deck()
 
 # --        DO NOT REMOVE        --- #
 # --- MUST BE INITIALIZED TO RUN --- # 
-p1 = Player()
 
-p1.draw()
+p1 = User("Ashton")
 
-p1.showHand()
