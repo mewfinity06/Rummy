@@ -44,11 +44,11 @@ class Deck:
         
     def sortDeck(self):
 
-        def helper_value(c):
+        def helperValue(c):
             value = c[1:]
             return(int(value))
         
-        def helper_suit(c):
+        def helperSuit(c):
             suit = c[0]
             if suit == "s":
                 return 0
@@ -61,8 +61,8 @@ class Deck:
             else:
                 return 4
             
-        self.contents.sort(key=helper_value)
-        self.contents.sort(key=helper_suit)
+        self.contents.sort(key=helperValue)
+        self.contents.sort(key=helperSuit)
 
 
 class Player:
@@ -77,7 +77,7 @@ class Player:
     def draw(self):
         self.hand.append(d1.contents.pop())
 
-    def show_hand(self):
+    def showHand(self):
         print("\n")
         for card in self.hand:
             if card[0] == "s":
@@ -101,4 +101,4 @@ p1 = Player()
 
 p1.draw()
 
-p1.show_hand()
+p1.showHand()
