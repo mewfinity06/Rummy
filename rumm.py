@@ -2,20 +2,30 @@ import random
 
 class Deck:
     def __init__(self) -> None:
-        self.contents = {}
+        self.contents = []
         self.num_of_cards = len(self.contents)
+        self.build()
         
 
     def __repr__(self) -> str:
         return "Deck has " + str(self.num_of_cards) + " cards left"
+    
+    def printDeck(self) -> None:
+        for card in self.contents:
+            print( card )
 
-    def shuffleDeck(self):
+    def shuffleDeck(self) -> None:
         random.shuffle(self.contents)
     
     def build(self):
         card_order = {
             a: [] for a in range(52)
         }
+
+        suit_order = ["Spade", "Heart", "Club", "Diamond"]
+        value_order = [i for i in range(1, 13)]
+
+        temp_deck = []
 
         # Add Spades to Contents
         for i in range(52):
@@ -27,10 +37,47 @@ class Deck:
                 card_order[i] = ["Club", i % 13, "c" + str(i % 13 + 1)]
             elif i in range(39, 52):
                 card_order[i] = ["Diamond", i % 13, "d" + str(i % 13 + 1)]
+        
+        for element in range(len(card_order)):
+            temp_deck.append(card_order[element][2])
+        
+        self.contents = temp_deck
             
         
-        self.contents = card_order
+    def sortDeck(self):
 
+        def mergeSort(arr):
+            if len(arr) > 1:
+
+                mid = len(arr) // 2
+
+                left = arr[:mid]
+
+                right = arr[mid:]
+
+                mergeSort(left)
+
+                mergeSort(right)
+
+                i, j, k = 0
+
+                while i < len(left) and j < len(right):
+                    if left[i] <= right[j]:
+                        arr[k] = left[i]
+                        i += 1
+                    else:
+                        arr[k] = right[j]
+                        j += 1
+                    k += 1
+                
+                while i < len(left):
+                    arr[k] = left[i]
+                    i += 1
+                    k += 1
+                
+                while j < len(right):
+                    arr[k] = right[j]
+        
 
 
 class Player:
@@ -54,8 +101,4 @@ class Player:
 # ---       DO NOT REMOVE        --- #
 d1 = Deck()
 
-d1.build()
-
-
-for c in d1.contents:
-    print(c, d1.contents[c])
+print(d1)
