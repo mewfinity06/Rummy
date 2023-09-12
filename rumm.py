@@ -62,10 +62,9 @@ class Deck:
                 return 3
             else:
                 return 4
-        print(self.contents)
+            
         self.contents.sort(key=helper_value)
         self.contents.sort(key=helper_suit)
-        print(self.contents)
 
 
         
