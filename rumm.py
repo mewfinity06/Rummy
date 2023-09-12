@@ -19,15 +19,14 @@ class Deck:
 
         # Add Spades to Contents
         for i in range(52):
-            if i in range(0, 12):
-                card_order[i] = ["Spade",]
-            elif i in range(13, 25):
-                card_order[i] = ["Heart",]
-            elif i in range(26, 38):
-                card_order[i] = ["Club",]
-            elif i in range(39, 51):
-                card_order[i] = ["Diamond",]
-            
+            if i in range(0, 13):
+                card_order[i] = ["Spade", i % 13, "s" + str(i % 13 + 1)]
+            elif i in range(13, 26):
+                card_order[i] = ["Heart", i % 13, "h" + str(i % 13 + 1)]
+            elif i in range(26, 39):
+                card_order[i] = ["Club", i % 13, "c" + str(i % 13 + 1)]
+            elif i in range(39, 52):
+                card_order[i] = ["Diamond", i % 13, "d" + str(i % 13 + 1)]
             
         
         self.contents = card_order
@@ -58,4 +57,5 @@ d1 = Deck()
 d1.build()
 
 
-print(d1.contents)
+for c in d1.contents:
+    print(c, d1.contents[c])
