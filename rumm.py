@@ -129,8 +129,12 @@ class User(Player):
         super().__init__(name)
 
 class Bot(Player):
-    def __init__(self):
-        super().__init__("BOT")
+    def __init__(self, id):
+        name = "BOT" + str(id)
+        super().__init__(name)
+    
+    def __repr__(self):
+        return self.name
 
 # --- MUST BE INITIALIZED TO RUN --- #
 # ---       DO NOT REMOVE        --- #
@@ -141,9 +145,30 @@ d1 = Deck()
 # --- MUST BE INITIALIZED TO RUN --- # 
 
 def start():
-    player_name = input("Name:")
+    game = True
+    player_name = input("Name: ")
     p1 = Player(player_name)
-    print(p1)
+
+    num_of_bots = int(input("Number of bots [MAX 3]: "))
+    bots = []
+
+    for bot in range(num_of_bots):
+        bots.append(Bot(bot))
+
+    for bot in bots:
+        print("BOT", bot)
+
+    while (game):
+        print ( \
+            "\tPLEASE SELECT ACTIONS:\n" + \
+            "1. DRAW\n" + \
+            "2. SHOW HAND\n" + \
+            "3. PLAY CARDS\n" + \
+            "q. QUIT\n")
+        action = input("Number of action: ").lower()
+
+        if action == 'q' | action == 'quit':
+            game = False
 
 if __name__ == "__main__":
     start()
