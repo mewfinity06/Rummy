@@ -75,32 +75,41 @@ class Player:
 
         for c in range(7):
             self.hand.append(d1.contents.pop())
-        
+
+        self.hand_length = len(self.hand)
+
         self.sortHand()
     
     def __repr__(self):
         return self.name + " has " + str(len(self.hand)) + " cards left"
     
     def sayName(self):
-        print(self.name)
+        print( self.name )
     
     def draw(self):
-        self.hand.append(d1.contents.pop())
+        new_card = d1.contents.pop()
+        print( new_card )
+        self.hand.append(new_card)
+        self.sortHand()
+        self.hand_length = len(self.hand)
 
     def showHand(self):
-        print("\n")
+        print( "\n" )
+        i = 1
         for card in self.hand:
+            print( str(i), end=": " )
             if card[0] == "s":
-                print("Spade", card[1:], end=", ")
+                print( "Spade", card[1:], end=", " )
             elif card[0] == "h":
-                print("Heart", card[1:], end=", ")
+                print( "Heart", card[1:], end=", " )
             elif card[0] == "c":
-                print("Club", card[1:], end=", ")
+                print( "Club", card[1:], end=", " )
             elif card[0] == "d":
-                print("Diamond", card[1:], end=", ")
+                print( "Diamond", card[1:], end=", " )
             else:
-                print("Other")
-        print("\n")
+                print( "Other" )
+            i += 1
+        print( "\n" )
 
     def sortHand(self):
 
@@ -123,6 +132,31 @@ class Player:
             
         self.hand.sort(key=helperValue)
         self.hand.sort(key=helperSuit)
+    
+    def playCard(self):
+        
+        self.showHand()
+        card = input( "Please choose a card [1 - " + str(self.hand_length) + "]: " )
+
+        try:
+            card_index = int(card)
+            if card_index > self.hand_length or card_index < 0:
+                return self.playCard()
+        except:
+            print( 'PLEASE CHOOSE A CORRECT CARD' )
+            return self.playCard()
+    
+    def turn(self, action):
+
+        if action == 'q' or action == 'quit':
+            global game_on
+            game_on = False
+        elif action == '1':
+            self.draw()
+        elif action == '2':
+            self.showHand()
+        elif action == '3':
+            self.playCard()
 
 class User(Player):
     def __init__(self, name = "1"):
@@ -145,7 +179,7 @@ d1 = Deck()
 # --- MUST BE INITIALIZED TO RUN --- # 
 
 def start():
-    game = True
+    game_on = True
     player_name = input("Name: ")
     p1 = Player(player_name)
 
@@ -156,19 +190,17 @@ def start():
         bots.append(Bot(bot))
 
     for bot in bots:
-        print("BOT", bot)
-
-    while (game):
+        print( "BOT", bot )
+    
+    while ( game_on ):
         print ( \
-            "\tPLEASE SELECT ACTIONS:\n" + \
-            "1. DRAW\n" + \
-            "2. SHOW HAND\n" + \
-            "3. PLAY CARDS\n" + \
-            "q. QUIT\n")
-        action = input("Number of action: ").lower()
-
-        if action == 'q' | action == 'quit':
-            game = False
+                "\tPLEASE SELECT ACTIONS:\n" + \
+                "1. DRAW\n" + \
+                "2. SHOW HAND\n" + \
+                "3. PLAY CARDS\n" + \
+                "q. QUIT\n" )
+        action = input( "Number of action: " ).lower()
+        p1.turn(action)
 
 if __name__ == "__main__":
     start()
