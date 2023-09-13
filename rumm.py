@@ -88,7 +88,8 @@ class Player:
     
     def draw(self):
         new_card = d1.contents.pop()
-        self.printCard(new_card)
+        if str(type(self)) == '<class \'__main__.User\'>':
+            self.printCard(new_card)
         self.hand.append(new_card)
         self.sortHand()
         self.hand_length = len(self.hand)
@@ -96,11 +97,11 @@ class Player:
     def printCard(self, card):
         if card[0] == "s":
             print( "Spade", card[1:] )
-        elif card[1] == "h":
+        elif card[0] == "h":
             print( "Heart", card[1:] )
-        elif card[2] == "c":
+        elif card[0] == "c":
             print( "Club", card[1:] )
-        elif card[3] == "d":
+        elif card[0] == "d":
             print( "Diamond", card[1:] )
         else:
             print( "Other" )
@@ -144,6 +145,11 @@ class Player:
             
         self.hand.sort(key=helperValue)
         self.hand.sort(key=helperSuit)
+
+
+class User(Player):
+    def __init__(self, name = "1"):
+        super().__init__(name)
     
     def playCard(self):
         
@@ -158,17 +164,10 @@ class Player:
             print( 'PLEASE CHOOSE A CORRECT CARD' )
             return self.playCard()
 
-class User(Player):
-    def __init__(self, name = "1"):
-        super().__init__(name)
-
 class Bot(Player):
     def __init__(self, id):
         name = "BOT" + str(id)
         super().__init__(name)
-    
-    def __repr__(self):
-        return self.name
 
 # --- MUST BE INITIALIZED TO RUN --- #
 # ---       DO NOT REMOVE        --- #
@@ -181,7 +180,7 @@ d1 = Deck()
 def start():
     game_on = True
     player_name = input("Name: ")
-    p1 = Player(player_name)
+    p1 = User(player_name)
 
     num_of_bots = int(input("Number of bots [MAX 3]: "))
     bots = []
@@ -190,7 +189,7 @@ def start():
         bots.append(Bot(bot))
 
     for bot in bots:
-        print( "BOT", bot )
+        print( bot )
 
     while (game_on):
         print ( \
