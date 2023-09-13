@@ -145,18 +145,6 @@ class Player:
         except:
             print( 'PLEASE CHOOSE A CORRECT CARD' )
             return self.playCard()
-    
-    def turn(self, action):
-
-        if action == 'q' or action == 'quit':
-            global game_on
-            game_on = False
-        elif action == '1':
-            self.draw()
-        elif action == '2':
-            self.showHand()
-        elif action == '3':
-            self.playCard()
 
 class User(Player):
     def __init__(self, name = "1"):
@@ -191,16 +179,24 @@ def start():
 
     for bot in bots:
         print( "BOT", bot )
-    
-    while ( game_on ):
+
+    while (game_on):
         print ( \
-                "\tPLEASE SELECT ACTIONS:\n" + \
-                "1. DRAW\n" + \
-                "2. SHOW HAND\n" + \
-                "3. PLAY CARDS\n" + \
-                "q. QUIT\n" )
+            "\tPLEASE SELECT ACTIONS:\n" + \
+            "1. DRAW\n" + \
+            "2. SHOW HAND\n" + \
+            "3. PLAY CARDS\n" + \
+            "q. QUIT\n" )
         action = input( "Number of action: " ).lower()
-        p1.turn(action)
+
+        if action == 'q' or action == 'quit':
+            game_on = False
+        elif action == '1':
+            p1.draw()
+        elif action == '2':
+            p1.showHand()
+        elif action == '3':
+            p1.playCard()
 
 if __name__ == "__main__":
     start()
