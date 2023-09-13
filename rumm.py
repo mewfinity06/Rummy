@@ -88,10 +88,22 @@ class Player:
     
     def draw(self):
         new_card = d1.contents.pop()
-        print( new_card )
+        self.printCard(new_card)
         self.hand.append(new_card)
         self.sortHand()
         self.hand_length = len(self.hand)
+    
+    def printCard(self, card):
+        if card[0] == "s":
+            print( "Spade", card[1:] )
+        elif card[1] == "h":
+            print( "Heart", card[1:] )
+        elif card[2] == "c":
+            print( "Club", card[1:] )
+        elif card[3] == "d":
+            print( "Diamond", card[1:] )
+        else:
+            print( "Other" )
 
     def showHand(self):
         print( "\n" )
