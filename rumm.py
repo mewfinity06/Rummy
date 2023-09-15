@@ -1,5 +1,7 @@
 import random
 
+card_stack = []
+
 class Deck:
     def __init__(self) -> None:
         self.contents = []
@@ -158,8 +160,10 @@ class User(Player):
 
         try:
             card_index = int(card)
-            if card_index > self.hand_length or card_index < 0:
+            if card_index > self.hand_length or card_index <= 0:
                 return self.playCard()
+            card_stack.append(self.hand.pop(card_index-1))
+            self.printCard(card_stack[-1])
         except:
             print( 'PLEASE CHOOSE A CORRECT CARD' )
             return self.playCard()
