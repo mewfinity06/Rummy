@@ -47,11 +47,11 @@ class Deck:
 		
 	def sortDeck(self):
 
-		def helperValue(c):
+		def helperValue(c) -> int:
 			value = c[1:]
 			return(int(value))
 		
-		def helperSuit(c):
+		def helperSuit(c) -> str:
 			suit = c[0]
 			if suit == "s":
 				return 0
@@ -109,7 +109,7 @@ class Player:
 			print( "Other" )
 
 	def showHand(self):
-		print( "\n" )
+		print( "\n=====================================================\n" )
 		i = 1
 		for card in self.hand:
 			print( str(i), end=": " )
@@ -123,14 +123,17 @@ class Player:
 				print( "Diamond", card[1:], end=", " )
 			else:
 				print( "Other" )
+			
+			if i % 4 == 0:
+				print( "\n" )
 			i += 1
-		print( "\n" )
+		print( "\n\n=====================================================\n" )
 
 	def sortHand(self):
 
 		def helperValue(c):
 			value = c[1:]
-			return(int(value))
+			return int(value)
 		
 		def helperSuit(c):
 			suit = c[0]
