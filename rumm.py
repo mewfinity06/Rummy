@@ -47,11 +47,11 @@ class Deck:
 		
 	def sortDeck(self):
 
-		def helperValue(c) -> int:
+		def helperValue(c):
 			value = c[1:]
 			return(int(value))
 		
-		def helperSuit(c) -> str:
+		def helperSuit(c):
 			suit = c[0]
 			if suit == "s":
 				return 0
