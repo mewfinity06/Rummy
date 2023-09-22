@@ -7,6 +7,7 @@ class Deck:
 		self.contents = []
 		self.build()
 		self.shuffleDeck()
+		card_stack.append(self.contents.pop())
 		self.num_of_cards = len(self.contents)
 		
 
@@ -157,19 +158,43 @@ class User(Player):
 		super().__init__(name)
 	
 	def playCard(self):
-		
-		self.showHand()
-		card = input( "Please choose a card [1 - " + str(self.hand_length) + "]: " )
+			print( "\nTop Card: ", end="" )
+			self.printCard(card_stack[-1])
+			self.showHand()
+			card = input( "Please choose a card [1 - " + str(self.hand_length) + "]: " )
 
-		try:
 			card_index = int(card)
+
+			for card in self.hand:
+				if self.playableCard(card):
+					pass
+				print( "No playable card! Ending turn with drawing" )
+				self.draw()
+				return 0
+
 			if card_index > self.hand_length or card_index <= 0:
+				print( "Not a valid card, please choose one in range!" )
+				return self.playCard()
+			if not self.playableCard(self.hand[card_index-1]):
+				print( "Not a playable card! Try again!" )
 				return self.playCard()
 			card_stack.append(self.hand.pop(card_index-1))
 			self.printCard(card_stack[-1])
-		except:
-			print( 'PLEASE CHOOSE A CORRECT CARD' )
-			return self.playCard()
+	
+	def playableCard(self, card):
+
+		if card_stack == []:
+			return True
+		
+		top_card = card_stack[-1]
+
+		if card[0] == top_card[0]:
+			print( "Suit is the same!" )
+			return True
+		if card[1:] == top_card[1:]:
+			print( "Value is the same!" )
+			
+		return False
 
 class Bot(Player):
 	def __init__(self, id):
