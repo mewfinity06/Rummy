@@ -1,13 +1,13 @@
 import random
 
-card_stack = []
+discard_pile = []
 
 class Deck:
 	def __init__(self) -> None:
 		self.contents = []
 		self.build()
 		self.shuffleDeck()
-		card_stack.append(self.contents.pop())
+		discard_pile.append(self.contents.pop())
 		self.num_of_cards = len(self.contents)
 		
 
@@ -110,7 +110,7 @@ class Player:
 			print( "Other" )
 
 	def showHand(self):
-		print( "\n=====================================================\n" )
+		print( "\n=============================================================\n" )
 		i = 1
 		for card in self.hand:
 			print( str(i), end=": " )
@@ -125,10 +125,10 @@ class Player:
 			else:
 				print( "Other" )
 			
-			if i % 4 == 0:
+			if i % 5 == 0:
 				print( "\n" )
 			i += 1
-		print( "\n\n=====================================================\n" )
+		print( "\n\n=============================================================\n" )
 
 	def sortHand(self):
 
@@ -159,7 +159,7 @@ class User(Player):
 	
 	def playCard(self):
 			print( "\nTop Card: ", end="" )
-			self.printCard(card_stack[-1])
+			self.printCard(discard_pile[-1])
 			self.showHand()
 			card = input( "Please choose a card [1 - " + str(self.hand_length) + "]: " )
 
@@ -178,15 +178,15 @@ class User(Player):
 			if not self.playableCard(self.hand[card_index-1]):
 				print( "Not a playable card! Try again!" )
 				return self.playCard()
-			card_stack.append(self.hand.pop(card_index-1))
-			self.printCard(card_stack[-1])
+			discard_pile.append(self.hand.pop(card_index-1))
+			self.printCard(discard_pile[-1])
 	
 	def playableCard(self, card):
 
-		if card_stack == []:
+		if discard_pile == []:
 			return True
 		
-		top_card = card_stack[-1]
+		top_card = discard_pile[-1]
 
 		if card[0] == top_card[0]:
 			print( "Suit is the same!" )
@@ -222,24 +222,28 @@ def start():
 
 	for bot in bots:
 		print( bot )
+	
+	p1.draw()
+	p1.showHand()
+	p1.playCard()
 
-	while (game_on):
-		print ( \
-			"\tPLEASE SELECT ACTIONS:\n" + \
-			"1. DRAW\n" + \
-			"2. SHOW HAND\n" + \
-			"3. PLAY CARDS\n" + \
-			"q. QUIT\n" )
-		action = input( "Number of action: " ).lower()
+	# while (game_on):
+	# 	print ( \
+	# 		"\tPLEASE SELECT ACTIONS:\n" + \
+	# 		"1. DRAW\n" + \
+	# 		"2. SHOW HAND\n" + \
+	# 		"3. PLAY CARDS\n" + \
+	# 		"q. QUIT\n" )
+	# 	action = input( "Number of action: " ).lower()
 
-		if action == 'q' or action == 'quit':
-			game_on = False
-		elif action == '1':
-			p1.draw()
-		elif action == '2':
-			p1.showHand()
-		elif action == '3':
-			p1.playCard()
+	# 	if action == 'q' or action == 'quit':
+	# 		game_on = False
+	# 	elif action == '1':
+	# 		p1.draw()
+	# 	elif action == '2':
+	# 		p1.showHand()
+	# 	elif action == '3':
+	# 		p1.playCard()
 
 if __name__ == "__main__":
 	start()
